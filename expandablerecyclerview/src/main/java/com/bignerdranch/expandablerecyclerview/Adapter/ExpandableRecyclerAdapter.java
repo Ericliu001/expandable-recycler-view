@@ -1,5 +1,9 @@
 package com.bignerdranch.expandablerecyclerview.Adapter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,10 +14,6 @@ import com.bignerdranch.expandablerecyclerview.Model.ParentListItem;
 import com.bignerdranch.expandablerecyclerview.Model.ParentWrapper;
 import com.bignerdranch.expandablerecyclerview.ViewHolder.ChildViewHolder;
 import com.bignerdranch.expandablerecyclerview.ViewHolder.ParentViewHolder;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * RecyclerView.Adapter implementation that
@@ -605,6 +605,7 @@ public abstract class ExpandableRecyclerAdapter<PVH extends ParentViewHolder, CV
                 }
 
                 notifyItemRangeRemoved(parentIndex + 1, childListItemCount);
+                notifyItemChanged(parentIndex, null); // this call will force trigger onBindViewHolder(), in case the parent item needs to refresh UI to display different state when open and closed
             }
 
             if (collapseTriggeredByListItemClick && mExpandCollapseListener != null) {
